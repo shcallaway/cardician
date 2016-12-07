@@ -1,5 +1,5 @@
 # Cardician
-cardician | *noun* | A magician who manipulates playing cards.
+cardician (car • dish • un) | *noun* | A magician who manipulates playing cards.
 
 Add professional connections to a Google sheet from CLI. 
 
