@@ -13,4 +13,4 @@ This line creates an alias `card` that executes the main file. If the Cardician 
 
 ## Resources
 * [Google Sheets API Ruby Quickstart](https://developers.google.com/sheets/quickstart/ruby)
-* [How to Write A1 Notation](https://msdn.microsoft.com/en-us/library/bb211395(v=office.12).aspx)
+* [Google Drive Gem](https://github.com/gimite/google-drive-ruby)
