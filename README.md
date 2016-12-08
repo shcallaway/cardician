@@ -1,17 +1,15 @@
 # Cardician
 cardician (car • dish • un) *noun* : A magician who manipulates playing cards.
 
-Add professional connections to a Google sheet from CLI. 
+Add professional connections to a Google sheet from CLI.
 
-## Adding CLI Alias
+## Bash Alias
 
-You should create a bash alias for Cardician. This will make it easy to invoke the application from any directory on your machine. 
+A bash alias makes it easy to invoke Cardician from any driectory. Add the following line to the `.bashrc` file:
 
-Add the following line to your `.bashrc` file (or your `.bash_profile`):
+```alias card=ruby\ /Users/scallaway/Desktop/Cardician/cardician.rb```
 
-```alias card=ruby\ /Users/<your username>/Desktop/Cardician/cardician.rb```
-
-Remember to replace the username placeholder with the corresponding value. This line creates the alias `card` for executing the main file. If your Cardician directory is somewhere other than Desktop, modify the directory accordingly.
+This line creates an alias `card` that executes the main file. If the Cardician directory is somewhere other than Desktop, modify the directory accordingly.
 
 ## Resources
 * [Google Sheets API Ruby Quickstart](https://developers.google.com/sheets/quickstart/ruby)
