@@ -1,9 +1,9 @@
 # Cardician
-cardician (car • dish • un) *noun* - A magician who manipulates playing cards.
+cardician (car • dish • un) *noun* : A magician who manipulates playing cards.
 
 Add professional connections to a Google sheet from CLI. 
 
-## Adding CLI Shortcut
+## Adding CLI Alias
 
 You should create a bash alias for Cardician. This will make it easy to invoke the application from any directory on your machine. 
 

@@ -40,18 +40,19 @@ def authorize
   credentials
 end
 
-# Initialize the API
+# Initialize the API.
 service = Google::Apis::SheetsV4::SheetsService.new
 service.client_options.application_name = APPLICATION_NAME
 service.authorization = authorize
 
-# Read columns A through C from spreadsheet:
+# Read columns A through C from my Google sheet. Full URL: 
 # https://docs.google.com/spreadsheets/d/1tii5sC0lGTPOUteb7p9JxVqxK45RcCbOCCeEbgD5rv0/edit
 spreadsheet_id = '1tii5sC0lGTPOUteb7p9JxVqxK45RcCbOCCeEbgD5rv0'
 range = 'A:C'
 response = service.get_spreadsheet_values(spreadsheet_id, range)
 puts 'No data found.' if response.values.empty?
+
+# Print columns A through C (indicies 0 through 2).
 response.values.each do |row|
-  # Print columns A thrugh C
   puts "#{row[0]}, #{row[1]}, #{row[2]}"
 end
