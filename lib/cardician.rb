@@ -27,7 +27,7 @@ if access_keys
 # Otherwise, authenticate.
 else
   # Generate a request token.
-  request_token = client.request_token({}, :scope => "r_basicprofile r_emailaddress")
+  request_token = client.request_token({}, scope: "r_basicprofile r_emailaddress")
 
   # Store the token, secret and pin URL.
   rtoken = request_token.token
