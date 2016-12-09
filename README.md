@@ -2,9 +2,7 @@
 
 ![alt text](https://github.com/shcallaway/cardician/blob/master/assets/gambit.jpg)
 
-cardician (car • dish • un) *noun* : A magician who manipulates playing cards.
-
-Add professional connections to a Google sheet from CLI.
+Add professional connections to a Google sheet from the command line. Become a card-weilding magician.
 
 ## How It Works
 
@@ -23,3 +21,5 @@ This line creates an alias `card` that executes the main file. If the Cardician 
 ## Resources
 * [Google Sheets API Ruby Quickstart](https://developers.google.com/sheets/quickstart/ruby)
 * [Google Drive Gem](https://github.com/gimite/google-drive-ruby)
+* [LinkedIn Gem](https://github.com/hexgnu/linkedin)
+* [LinkedIn API](https://developer.linkedin.com/docs/oauth2)
