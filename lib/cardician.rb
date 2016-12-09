@@ -1,34 +1,49 @@
 require 'google_drive'
 require 'linkedin'
 require 'dotenv'
-Dotenv.load
 
 # Get the user's LinkedIn URL from args.
 URL = ARGV[0]
 ARGV.clear
 
-# LinkedIn API ID and secret. Need to move these to .env.
+# Load the LinkedIn API credentials.
+Dotenv.load
 ID = ENV['LINKEDIN_ID']
 SECRET = ENV['LINKEDIN_SECRET']
 
-# Set up the LinkedIn client and build the authorization request.
+# Set up the LinkedIn client.
 client = LinkedIn::Client.new(ID, SECRET)
-request_token = client.request_token({}, :scope => "r_basicprofile r_emailaddress")
 
-# Store the token, secret and pin URL.
-rtoken = request_token.token
-rsecret = request_token.secret
-pin_url = request_token.authorize_url
+access_keys = false
+# Authorize from existing access keys if possible.
+if access_keys
+  client.authorize_from_access(access_keys[0], access_keys[1])
+# Otherwise, authenticate.
+else
+  # Generate a request token.
+  request_token = client.request_token({}, :scope => "r_basicprofile r_emailaddress")
 
-# Direct the user to authenticate manually and enter the pin.
-# puts "===================\n==== CARDICIAN ====\n==================="
-puts "LinkedIn is not authorized." 
-puts "To authorize, visit this URL: #{pin_url}"
-puts "Copy the PIN and paste it here:"
-pin = gets.strip
+  # Store the token, secret and pin URL.
+  rtoken = request_token.token
+  rsecret = request_token.secret
+  pin_url = request_token.authorize_url
 
-# Authorize! Store the access keys. (Maybe should write them to .env?)
-access_keys = client.authorize_from_request(rtoken, request_token.secret, pin)
+  # Direct the user to authenticate manually via browser and enter the pin.
+  puts "ACTION REQUIRED: You need to authenticate this app with LinkedIn. "\
+       "To authorize, visit this URL:\n#{pin_url}\n"
+  print "Copy the six digit code and paste it here:"
+
+  # Get the PIN. (Strip trailing whitespace.)
+  pin = gets.strip
+
+  # Try authorizing using the provided code.
+  begin 
+    access_keys = client.authorize_from_request(rtoken, request_token.secret, pin) 
+  rescue
+    # Abort if the authorization fails. 
+    abort("Invalid authorization code. Try reshuffling.")
+  end 
+end
 
 user = client.profile(url: URL)
 first_name = user.first_name
