@@ -8,7 +8,9 @@ Add professional connections to a Google sheet from CLI.
 
 ## How It Works
 
-![alt text](https://github.com/shcallaway/cardician/blob/master/assets/terminal.jpg)
+This screenshot shows the entire process, which involves the user to authenticate with both LinkedIn and Google. The goal is to eventually store credentials from both APIs so that the user only has to authenticate once. In the end, a user will be able to add Google sheet entries just by calling `card` with a LinkedIn URL.
+
+![alt text](https://github.com/shcallaway/cardician/blob/master/assets/terminal.png)
 
 ## Bash Alias
 
