@@ -14,7 +14,13 @@ SECRET = ENV['LINKEDIN_SECRET']
 # Set up the LinkedIn client.
 client = LinkedIn::Client.new(ID, SECRET)
 
-access_keys = false
+# Look for some existing access keys.
+if File.exists?("linkedin.txt")
+  access_keys = File.open("linkedin.txt", &:gets).split(",")
+else
+  access_keys = false
+end 
+
 # Authorize from existing access keys if possible.
 if access_keys
   client.authorize_from_access(access_keys[0], access_keys[1])
@@ -31,7 +37,7 @@ else
   # Direct the user to authenticate manually via browser and enter the pin.
   puts "ACTION REQUIRED: You need to authenticate this app with LinkedIn. "\
        "To authorize, visit this URL:\n#{pin_url}\n"
-  print "Copy the six digit code and paste it here:"
+  print "Copy the five digit code and paste it here:"
 
   # Get the PIN. (Strip trailing whitespace.)
   pin = gets.strip
@@ -39,19 +45,24 @@ else
   # Try authorizing using the provided code.
   begin 
     access_keys = client.authorize_from_request(rtoken, request_token.secret, pin) 
+
+    # Write the new access keys to a local file.
+    File.open("linkedin.txt", "w") do |f|
+      f.write("#{access_keys}")
+    end
   rescue
     # Abort if the authorization fails. 
     abort("Invalid authorization code. Try reshuffling.")
   end 
 end
 
+# Get relevant info from the LinkedIn user.
 user = client.profile(url: URL)
 first_name = user.first_name
 last_name = user.last_name
 
 # Create a new Google session. 
-# Prompts for credentials the first time.
-# Saves to config.json for later.
+# (Prompts for credentials the first time. Saves to config.json after.)
 session = GoogleDrive::Session.from_config("google.json")
 
 # Grab the first worksheet of Google sheet: 1tii5sC0lGTPOUteb7p9JxVqxK45RcCbOCCeEbgD5rv0
@@ -61,7 +72,6 @@ ws = session.spreadsheet_by_key("1tii5sC0lGTPOUteb7p9JxVqxK45RcCbOCCeEbgD5rv0").
 row = ws.num_rows + 1
 
 # Populate cells in new row.
-# Need to switch this out for command line args.
 ws[row, 1] = first_name
 ws[row, 2] = last_name
 ws[row, 3] = URL
@@ -69,8 +79,5 @@ ws[row, 3] = URL
 # Save the changes to the server.
 ws.save()
 
-# Print the new entry.
-p "New Spreadsheet Entry: #{ws[row, 1]}, #{ws[row, 2]}, #{ws[row, 3]}"
-
-# Reload the worksheet to get changes by other clients.
-ws.reload
+# Print the success statement.
+puts "Success! A new card has been added to your deck."

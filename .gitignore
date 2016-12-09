@@ -3,3 +3,6 @@ config.json
 
 # Don't track the .env stuff.
 .env
+
+# Don't track the LinkedIn access keys.
+linkedin.txt
