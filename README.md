@@ -6,6 +6,10 @@ cardician (car • dish • un) *noun* : A magician who manipulates playing card
 
 Add professional connections to a Google sheet from CLI.
 
+## How It Works
+
+![alt text](https://github.com/shcallaway/cardician/blob/master/assets/terminal.jpg)
+
 ## Bash Alias
 
 A bash alias makes it easy to invoke Cardician from any driectory. Add the following line to the `.bashrc` file:

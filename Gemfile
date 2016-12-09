@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
 gem 'google_drive'
-gem 'httparty', '~> 0.14.0'
-gem 'nokogiri', '~> 1.6', '>= 1.6.6.2'
-gem 'pry', '~> 0.10.4'
+gem 'linkedin'
+gem 'dotenv'

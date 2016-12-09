@@ -1,47 +1,57 @@
-require "google_drive"
-require "httparty"
-require "nokogiri"
-require "pry"
+require 'google_drive'
+require 'linkedin'
 
-# Store the LinkedIn URL form command line.
-linkedin_url = "https://www.linkedin.com/in/sherwoodcallaway"
+# Get the user's LinkedIn URL from args.
+URL = ARGV[0]
+ARGV.clear
 
-# Get the contents of the LinkedIn page.
-page = HTTParty.get(linkedin_url, follow_redirects: true)
+# LinkedIn API ID and secret. Need to move these to .env.
+ID = '78ql1v36h0gkrg'
+SECRET = 'FmkJQH0KETRMSTKJ'
 
-# Page is actually just an HTML header with a JS redirect -- need to get to the final page somehow?
-p page.parsed_response
+# Set up the LinkedIn client and build the authorization request.
+client = LinkedIn::Client.new(ID, SECRET)
+request_token = client.request_token({}, :scope => "r_basicprofile r_emailaddress")
 
-# Once I get to the final page, I can do all this:
+# Store the token, secret and pin URL.
+rtoken = request_token.token
+rsecret = request_token.secret
+pin_url = request_token.authorize_url
 
-# # Parse the page with Nokogiri.
-# parse_page = Nokogiri::HTML(page)
+# Direct the user to authenticate manually and enter the pin.
+puts "Access this URL: #{pin_url}"
+puts "Get the PIN and paste it here:"
+pin = gets.strip
 
-# full_name = parse_page.css("span.full-name").text
+# Authorize! Store the access keys. (Maybe should write them to .env?)
+access_keys = client.authorize_from_request(rtoken, request_token.secret, pin)
 
-# Parse the full_name into first_name and last_name.
+user = client.profile(url: URL)
+first_name = user.first_name
+last_name = user.last_name
 
-# # Create a session. Prompts for credentials the first time.
-# # Saves to config.json for later.
-# session = GoogleDrive::Session.from_config("config.json")
+# Create a new Google session. 
+# Prompts for credentials the first time.
+# Saves to config.json for later.
+session = GoogleDrive::Session.from_config("google.json")
 
-# # Grab the first worksheet of Google sheet: 1tii5sC0lGTPOUteb7p9JxVqxK45RcCbOCCeEbgD5rv0
-# ws = session.spreadsheet_by_key("1tii5sC0lGTPOUteb7p9JxVqxK45RcCbOCCeEbgD5rv0").worksheets[0]
+# Grab the first worksheet of Google sheet: 1tii5sC0lGTPOUteb7p9JxVqxK45RcCbOCCeEbgD5rv0
+ws = session.spreadsheet_by_key("1tii5sC0lGTPOUteb7p9JxVqxK45RcCbOCCeEbgD5rv0").worksheets[0]
 
-# # Find the next available row.
-# row = ws.num_rows + 1
+# Find the next available row.
+row = ws.num_rows + 1
 
-# # Populate cells in new row.
-# # Need to switch this out for command line args.
-# ws[row, 1] = first_name
-# ws[row, 2] = last_name
-# ws[row, 3] = linkedin_url
+# Populate cells in new row.
+# Need to switch this out for command line args.
+ws[row, 1] = first_name
+ws[row, 2] = last_name
+ws[row, 3] = URL
 
-# # Save the changes to the server.
-# ws.save()
+# Save the changes to the server.
+ws.save()
 
-# # Print the new entry.
-# p "New Spreadsheet Entry: #{ws[row, 1]} #{ws[row, 2]}"
+# Print the new entry.
+p "New Spreadsheet Entry: #{ws[row, 1]}, #{ws[row, 2]}, #{ws[row, 3]}"
 
-# # Reload the worksheet to get changes by other clients.
-# ws.reload
+# Reload the worksheet to get changes by other clients.
+ws.reload
