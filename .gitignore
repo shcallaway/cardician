@@ -1,2 +1,5 @@
 # Don't track the Google credentials.
 config.json
+
+# Don't track the .env stuff.
+.env

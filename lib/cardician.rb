@@ -1,13 +1,15 @@
 require 'google_drive'
 require 'linkedin'
+require 'dotenv'
+Dotenv.load
 
 # Get the user's LinkedIn URL from args.
 URL = ARGV[0]
 ARGV.clear
 
 # LinkedIn API ID and secret. Need to move these to .env.
-ID = '78ql1v36h0gkrg'
-SECRET = 'FmkJQH0KETRMSTKJ'
+ID = ENV['LINKEDIN_ID']
+SECRET = ENV['LINKEDIN_SECRET']
 
 # Set up the LinkedIn client and build the authorization request.
 client = LinkedIn::Client.new(ID, SECRET)
@@ -19,8 +21,10 @@ rsecret = request_token.secret
 pin_url = request_token.authorize_url
 
 # Direct the user to authenticate manually and enter the pin.
-puts "Access this URL: #{pin_url}"
-puts "Get the PIN and paste it here:"
+# puts "===================\n==== CARDICIAN ====\n==================="
+puts "LinkedIn is not authorized." 
+puts "To authorize, visit this URL: #{pin_url}"
+puts "Copy the PIN and paste it here:"
 pin = gets.strip
 
 # Authorize! Store the access keys. (Maybe should write them to .env?)
