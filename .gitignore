@@ -6,3 +6,6 @@ google.json
 
 # Don't track the LinkedIn access keys.
 linkedin.txt
+
+# What is this?
+.DS_Store
