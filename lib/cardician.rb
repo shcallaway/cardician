@@ -1,6 +1,7 @@
-require 'google_drive'
+require '/Users/sherwoodcallaway/Desktop/cardician/gems/google-drive/lib/google_drive'
 require 'linkedin'
 require 'dotenv'
+require 'colorize'
 
 # Abort if no args supplied.
 if ARGV.empty?
@@ -45,9 +46,9 @@ else
   pin_url = request_token.authorize_url
 
   # Direct the user to authenticate manually via browser and enter the pin.
-  puts "You need to authenticate this app with LinkedIn. "\
-       "To authorize, visit this URL:\n#{pin_url}\n"
-  print "Copy the five digit code and paste it here:"
+  puts "You need to authenticate this app with LinkedIn. Visit this page:\n"
+  puts "#{pin_url}".colorize(:green)
+  print "Copy and paste the code:"
 
   # Get the PIN. (Strip trailing whitespace.)
   pin = gets.strip
@@ -108,4 +109,4 @@ rescue
 end
 
 # Print the success statement.
-puts "Success! A new card has been added to your deck."
+puts "Success! #{first_name} has been added to your deck."
