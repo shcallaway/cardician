@@ -14,7 +14,7 @@ This screenshot shows the entire process, which requires the user to authenticat
 
 A bash alias makes it easy to invoke Cardician from any driectory. Add the following line to the `.bashrc` file:
 
-```alias card=ruby\ /Users/scallaway/Desktop/Cardician/cardician.rb```
+```alias card=bundle exec ruby\ /Users/scallaway/Desktop/Cardician/cardician.rb```
 
 This line creates an alias `card` that executes the main file. If the Cardician directory is somewhere other than Desktop, modify the directory accordingly.
 
