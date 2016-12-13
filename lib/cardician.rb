@@ -1,4 +1,4 @@
-require '/Users/sherwoodcallaway/Desktop/cardician/gems/google-drive/lib/google_drive'
+require 'google_drive'
 require 'linkedin'
 require 'dotenv'
 require 'colorize'
