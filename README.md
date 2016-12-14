@@ -6,17 +6,28 @@
 
 ## Background
 
-Like most innovations, Cardician was born out of laziness; I got tired of manually pasting names and URLs into the Google spreadsheet where I track professional connections. 
+Cardician makes it quick and easy to keep track of professional connections. Add names and URLs from Linkedin to a Google sheet from the comfort of your command line.
 
 ## Usage
 
-On first use, Cardician will prompt the user to authenticate with Linkedin and Google. It stores these credentials for future use. 
+To add a connection, pass their Linkedin URL as a command line argument to the main Ruby file. Like so:
 
-A bash alias makes it easy to invoke Cardician from any directory:
+`$ruby /Cardician/lib/cardician.rb https://www.linkedin.com/in/sherwoodcallaway`
 
-`alias card=bundle exec ruby\ /Users/scallaway/Desktop/Cardician/cardician.rb`
+On first use, Cardician prompts the user authenticate with Linkedin and Google. It saves these credentials for later.
+
+Use a bash alias to invoke Cardician from any directory:
+
+`alias cardician=ruby\ /Users/scallaway/Desktop/Cardician/cardician.rb`
 
 ## Install
+
+Clone the repository. Run `bundle install` in the root directory to install the necessary gems.
+
+You will need to provide three values in a .env file:
+* LINKEDIN_ID - Provided upon [registering a Linkedin app](https://www.linkedin.com/developer/apps)
+* LINKEDIN_SECRET - Same as above
+* GSHEET_ID - Visible in the Google sheet URL
 
 ## Resources
 * [Google Sheets API Ruby Quickstart](https://developers.google.com/sheets/quickstart/ruby)

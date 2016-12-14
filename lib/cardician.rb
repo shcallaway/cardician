@@ -5,23 +5,23 @@ require 'colorize'
 
 # Abort if no args supplied.
 if ARGV.empty?
-  abort("ERROR: LinkedIn URL missing.")
+  abort("ERROR: Linkedin URL missing.")
 end
 
-# Get the user's LinkedIn URL from args.
+# Get the user's Linkedin URL from args.
 URL = ARGV[0]
 ARGV.clear
 
-# Load the LinkedIn API credentials.
+# Load the Linkedin API credentials.
 if File.exists?(".env")
   Dotenv.load
   ID = ENV['LINKEDIN_ID']
   SECRET = ENV['LINKEDIN_SECRET']
 else 
-    abort("ERROR: LinkedIn API credentials missing.")
+  abort("ERROR: Linkedin API credentials missing.")
 end
 
-# Set up the LinkedIn client.
+# Set up the Linkedin client.
 client = LinkedIn::Client.new(ID, SECRET)
 
 # Look for some existing access keys.
@@ -46,7 +46,7 @@ else
   pin_url = request_token.authorize_url
 
   # Direct the user to authenticate manually via browser and enter the pin.
-  puts "You need to authenticate this app with LinkedIn. Visit this page:\n"
+  puts "You need to authenticate this app with Linkedin. Visit this page:\n"
   puts "#{pin_url}".colorize(:green)
   print "Copy and paste the code:"
 
@@ -67,14 +67,14 @@ else
   end 
 end
 
-# Try to find the LinkedIn user.
+# Try to find the Linkedin user.
 begin
   user = client.profile(url: URL)
 rescue
   abort("ERROR: Can't find a profile with that URL.")
 end
 
-# Get relevant info from the LinkedIn user.
+# Get relevant info from the Linkedin user.
 first_name = user.first_name
 last_name = user.last_name
 
@@ -86,11 +86,13 @@ rescue
   abort("ERROR: Google authorizaiton failed.")
 end
 
-# Grab the first worksheet of Google sheet: 1tii5sC0lGTPOUteb7p9JxVqxK45RcCbOCCeEbgD5rv0
+# Grab the first worksheet of Google sheet with provided ID.
+# You can get the Google sheet ID from the sheet URL.
+
 begin
-  ws = session.spreadsheet_by_key("1tii5sC0lGTPOUteb7p9JxVqxK45RcCbOCCeEbgD5rv0").worksheets[0]
+  ws = session.spreadsheet_by_key(ENV['GSHEET_ID']).worksheets[0]
 rescue
-  abort("ERROR: Invalid spreadsheet ID.")
+  abort("ERROR: Invalid or missing spreadsheet ID.")
 end
 
 # Find the next available row.
