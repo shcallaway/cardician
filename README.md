@@ -10,6 +10,13 @@ Cardician was born out of laziness; Specifically, I got tired of copy-pasting in
 
 ## Table of Contents
 
+- [Cardician](#)
+    - [Table of Contents](#)
+    - [Dependencies](#)
+    - [Installation](#)
+    - [To Use](#)
+    - [Resources](#)
+
 ## Dependencies
 
 1. Ruby (w/ Google Drive, LinkedIn, Dotenv, & Colorize Gems)
