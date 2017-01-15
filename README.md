@@ -24,14 +24,14 @@ Cardician was born out of laziness; Specifically, I got tired of copy-pasting in
 ## Installation
 
 1. Clone the repository.
-2. Run `bundle install` in the root directory to install the necessary gems.
+2. Run bundle install in the root directory to install the necessary gems.
 3. Create a .env file with the following API keys:
 
 * LINKEDIN_ID - Provided upon registering a Linkedin app
 * LINKEDIN_SECRET - Same as above
 * GSHEET_ID - Visible in the Google sheet URL
 
-4. Optional: Set up a bash alias to invoke Cardian from any directory:
+4. Set up a bash alias to invoke Cardian from any directory:
 
 ```
 alias cardician=ruby\ /Users/scallaway/Desktop/Cardician/cardician.rb
