@@ -101,7 +101,7 @@ row = ws.num_rows + 1
 # Populate cells in new row.
 ws[row, 1] = first_name
 ws[row, 2] = last_name
-ws[row, 10] = URL
+ws[row, 11] = URL
 
 # Save the changes to the server.
 begin
